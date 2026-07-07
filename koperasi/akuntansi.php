@@ -2,7 +2,7 @@
 include 'config.php';
 
 // Validasi Double Entry Check (Total Debit == Total Kredit)
-$check_stmt = $pdo->query("SELECT SUM(debit) as total_debit, SUM(kredit) as total_kredit FROM Detail_Jurnal");
+$check_stmt = $pdo->query("SELECT SUM(debit) as total_debit, SUM(kredit) as total_kredit FROM detail_jurnal");
 $summary = $check_stmt->fetch(PDO::FETCH_ASSOC);
 $is_balanced = ($summary['total_debit'] == $summary['total_kredit']);
 ?>

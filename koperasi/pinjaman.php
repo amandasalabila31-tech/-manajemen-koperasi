@@ -11,7 +11,7 @@ if (isset($_POST['ajukan_pinjaman'])) {
     $metode_bunga = $_POST0['metode_bunga'] ?? 'flat';
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO Pengajuan_Pinjaman (id_anggota, jumlah_pinjaman, tenor_bulan, bunga_pct, metode_bunga, status_pengajuan) VALUES (?, ?, ?, ?, ?, 'Pending')");
+        $stmt = $pdo->prepare("INSERT INTO pengajuan_pinjaman (id_anggota, jumlah_pinjaman, tenor_bulan, bunga_pct, metode_bunga, status_pengajuan) VALUES (?, ?, ?, ?, ?, 'Pending')");
         $stmt->execute([$id_anggota, $jumlah_pinjaman, $tenor_bulan, $bunga_pct, $metode_bunga]);
         $message = "<div class='p-4 mb-4 text-sm text-emerald-700 bg-emerald-50 rounded-xl font-medium'>✓ Pengajuan kredit berhasil didaftarkan! Sila tunggu verifikasi.</div>";
     } catch (Exception $e) {

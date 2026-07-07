@@ -7,7 +7,7 @@ $stmt_outstanding = $pdo->query("SELECT SUM(sisa_pokok) as total FROM pinjaman_a
 $outstanding = $stmt_outstanding->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
 
 // 2. Total Anggota
-$stmt_anggota = $pdo->query("SELECT COUNT(*) as total FROM Anggota");
+$stmt_anggota = $pdo->query("SELECT COUNT(*) as total FROM anggota");
 $total_anggota = $stmt_anggota->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
 ?>
 <!DOCTYPE html>

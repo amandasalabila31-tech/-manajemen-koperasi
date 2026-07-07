@@ -13,21 +13,21 @@ if (isset($_POST['daftar_anggota'])) {
         $pdo->beginTransaction();
 
         // 1. Ambil nilai iuran/simpanan pokok wajib berdasarkan jenis keanggotaan
-        $stmt_jenis = $pdo->prepare("SELECT iuran_wajib FROM Jenis_Keanggotaan WHERE id_jenis = ?");
+        $stmt_jenis = $pdo->prepare("SELECT iuran_wajib FROM jenis_keanggotaan WHERE id_jenis = ?");
         $stmt_jenis->execute([$id_jenis]);
         $iuran = $stmt_jenis->fetch(PDO::FETCH_ASSOC)['iuran_wajib'] ?? 0;
 
         // 2. Insert Anggota Baru
-        $stmt_anggota = $pdo->prepare("INSERT INTO Anggota (nama, email, id_jenis) VALUES (?, ?, ?) RETURNING id_anggota");
+        $stmt_anggota = $pdo->prepare("INSERT INTO anggota (nama, email, id_jenis) VALUES (?, ?, ?) RETURNING id_anggota");
         $stmt_anggota->execute([$nama, $email, $id_jenis]);
         $id_anggota = $stmt_anggota->fetch(PDO::FETCH_ASSOC)['id_anggota'];
 
         // 3. Buat Rekening Simpanan Pokok/Wajib Otomatis untuk Anggota Baru
-        $stmt_rek = $pdo->prepare("INSERT INTO Rekening_Simpanan (id_rekening, id_anggota, jenis_simpanan, saldo) VALUES (?, ?, 'Pokok', ?)");
+        $stmt_rek = $pdo->prepare("INSERT INTO rekening_simpanan (id_rekening, id_anggota, jenis_simpanan, saldo) VALUES (?, ?, 'Pokok', ?)");
         $stmt_rek->execute([$nomor_rekening, $id_anggota, $iuran]);
 
         // 4. Catat Transaksi Setoran Awal (Memicu Trigger Double-Entry Jurnal Otomatis)
-        $stmt_tx = $pdo->prepare("INSERT INTO Transaksi_Simpanan (id_rekening, jenis_transaksi, jumlah) VALUES (?, 'Setor', ?)");
+        $stmt_tx = $pdo->prepare("INSERT INTO transaksi_simpanan (id_rekening, jenis_transaksi, jumlah) VALUES (?, 'Setor', ?)");
         $stmt_tx->execute([$nomor_rekening, $iuran]);
 
         $pdo->commit();

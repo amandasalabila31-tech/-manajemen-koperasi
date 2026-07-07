@@ -13,14 +13,14 @@ if (isset($_POST['submit_transaksi'])) {
         $pdo->beginTransaction();
 
         // 1. Insert ke tabel Transaksi_Simpanan (Memicu Trigger Otomatis)
-        $stmt = $pdo->prepare("INSERT INTO Transaksi_Simpanan (id_rekening, jenis_transaksi, jumlah) VALUES (?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO transaksi_simpanan (id_rekening, jenis_transaksi, jumlah) VALUES (?, ?, ?)");
         $stmt->execute([$id_rekening, $jenis_transaksi, $jumlah]);
 
         // 2. Update saldo di Rekening_Simpanan
         if ($jenis_transaksi == 'Setor') {
-            $stmt_update = $pdo->prepare("UPDATE Rekening_Simpanan SET saldo = saldo + ? WHERE id_rekening = ?");
+            $stmt_update = $pdo->prepare("UPDATE rekening_simpanan SET saldo = saldo + ? WHERE id_rekening = ?");
         } else {
-            $stmt_update = $pdo->prepare("UPDATE Rekening_Simpanan SET saldo = saldo - ? WHERE id_rekening = ?");
+            $stmt_update = $pdo->prepare("UPDATE rekening_simpanan SET saldo = saldo - ? WHERE id_rekening = ?");
         }
         $stmt_update->execute([$jumlah, $id_rekening]);
 
