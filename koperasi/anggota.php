@@ -92,7 +92,7 @@ if (isset($_POST['daftar_anggota'])) {
                             <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Jenis Keanggotaan</label>
                             <select name="id_jenis" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-indigo-600" required>
                                 <?php
-                                $jenis_stmt = $pdo->query("SELECT * FROM Jenis_Keanggotaan");
+                                $jenis_stmt = $pdo->query("SELECT * FROM jenis_keanggotaan");
                                 while($jk = $jenis_stmt->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value='{$jk['id_jenis']}'>{$jk['nama_jenis']} (Wajib: Rp " . number_format($jk['iuran_wajib'], 0, ',', '.') . ")</option>";
                                 }
@@ -147,32 +147,3 @@ if (isset($_POST['daftar_anggota'])) {
     <a href="pinjaman.php" class="...">Pinjaman</a>
     <a href="akuntansi.php" class="...">Jurnal & Keuangan</a>
 </nav>
-<!-- Bagian <aside> atau Sidebar Anda -->
-<aside class="w-64 bg-slate-900 text-white p-6 flex flex-col justify-between">
-    <div>
-        <div class="flex items-center gap-3 mb-8">
-            <span class="font-bold">CoreCoop</span>
-        </div>
-
-        <nav class="flex flex-col gap-2">
-            <!-- Menu yang bisa dilihat semua role -->
-            <a href="dashboard.php" class="block p-2 hover:bg-slate-800 rounded">Dashboard</a>
-            <a href="profile.php" class="block p-2 hover:bg-slate-800 rounded">Profil</a>
-
-            <!-- Batasan Akses Akun Demo sesuai file di VS Code Anda -->
-            <?php if ($_SESSION['role'] === 'SUPER_ADMIN'): ?>
-                <a href="manajemen-user.php" class="block p-2 hover:bg-slate-800 rounded text-red-400">Manajemen User</a>
-                <a href="setting.php" class="block p-2 hover:bg-slate-800 rounded">Setting Aplikasi</a>
-
-            <?php elseif ($_SESSION['role'] === 'BENDAHARA' || $_SESSION['role'] === 'KETUA'): ?>
-                <a href="akuntansi.php" class="block p-2 hover:bg-slate-800 rounded text-green-400">Audit & Akuntansi</a>
-
-            <?php elseif ($_SESSION['role'] === 'TELLER'): ?>
-                <a href="anggota.php" class="block p-2 hover:bg-slate-800 rounded text-blue-400">Data Anggota</a>
-                
-            <?php elseif ($_SESSION['role'] === 'ANGGOTA'): ?>
-                <a href="simpanan-saya.php" class="block p-2 hover:bg-slate-800 rounded">Simpanan Saya</a>
-            <?php endif; ?>
-        </nav>
-    </div>
-</aside>

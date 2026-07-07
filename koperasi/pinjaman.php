@@ -64,7 +64,7 @@ if (isset($_POST['ajukan_pinjaman'])) {
                             <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Anggota Pemohon</label>
                             <select name="id_anggota" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-indigo-600" required>
                                 <?php
-                                $ang_stmt = $pdo->query("SELECT id_anggota, nama FROM Anggota");
+                                $ang_stmt = $pdo->query("SELECT id_anggota, nama FROM anggota");
                                 while($ang = $ang_stmt->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value='{$ang['id_anggota']}'>ID: {$ang['id_anggota']} - {$ang['nama']}</option>";
                                 }
@@ -118,7 +118,7 @@ if (isset($_POST['ajukan_pinjaman'])) {
                             </thead>
                             <tbody class="divide-y divide-slate-50 text-sm text-slate-700">
                                 <?php
-                                $pinj_stmt = $pdo->query("SELECT p.*, a.nama FROM Pengajuan_Pinjaman p JOIN Anggota a ON p.id_anggota = a.id_anggota ORDER BY p.id_pinjaman DESC");
+                                $pinj_stmt = $pdo->query("SELECT p.*, a.nama FROM pengajuan_pinjaman p JOIN anggota a ON p.id_anggota = a.id_anggota ORDER BY p.id_pinjaman DESC");
                                 while($row = $pinj_stmt->fetch(PDO::FETCH_ASSOC)) {
                                     $status_color = $row['status_pengajuan'] == 'Disetujui' ? 'bg-emerald-50 text-emerald-700' : ($row['status_pengajuan'] == 'Ditolak' ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700');
                                     echo "<tr>";

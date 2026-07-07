@@ -112,7 +112,7 @@ $total_anggota = $stmt_anggota->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
                         </thead>
                         <tbody class="divide-y divide-slate-50 text-sm text-slate-700">
                             <?php
-                            $stmt_tx = $pdo->query("SELECT * FROM Transaksi_Simpanan ORDER BY tanggal_transaksi DESC LIMIT 5");
+                            $stmt_tx = $pdo->query("SELECT * FROM transaksi_simpanan ORDER BY tanggal_transaksi DESC LIMIT 5");
                             while ($row = $stmt_tx->fetch(PDO::FETCH_ASSOC)) {
                                 echo "<tr>";
                                 echo "<td class='py-4 font-semibold text-slate-900'>{$row['id_rekening']}</td>";
