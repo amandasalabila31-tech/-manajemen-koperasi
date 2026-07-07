@@ -3,7 +3,7 @@
 include 'config.php';
 
 // 1. Total outstanding pinjaman
-$stmt_outstanding = $pdo->query("SELECT SUM(sisa_pokok) as total FROM Pinjaman_Aktif");
+$stmt_outstanding = $pdo->query("SELECT SUM(sisa_pokok) as total FROM pinjaman_aktif");
 $outstanding = $stmt_outstanding->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
 
 // 2. Total Anggota
