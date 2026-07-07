@@ -1,17 +1,21 @@
 <?php
 include 'config.php';
 
-echo "<h3>Database: " . $pdo->query("SELECT current_database()")->fetchColumn() . "</h3>";
-echo "<h3>Schema: " . $pdo->query("SELECT current_schema()")->fetchColumn() . "</h3>";
+echo "<pre>";
+
+echo "Database : " . $pdo->query("SELECT current_database()")->fetchColumn() . "\n";
+echo "User     : " . $pdo->query("SELECT current_user")->fetchColumn() . "\n";
+
+echo "\nDaftar tabel:\n";
 
 $stmt = $pdo->query("
-SELECT schemaname, tablename
+SELECT tablename
 FROM pg_tables
-ORDER BY schemaname, tablename
+WHERE schemaname='public'
+ORDER BY tablename
 ");
 
-echo "<pre>";
-print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
-echo "</pre>";
+print_r($stmt->fetchAll(PDO::FETCH_COLUMN));
 
+echo "</pre>";
 exit;
