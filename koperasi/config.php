@@ -3,7 +3,7 @@ $host = "ep-withered-resonance-atruyl3z-pooler.c-9.us-east-1.aws.neon.tech";
 $port = "5432";
 $dbname = "neondb";
 $user = "neondb_owner";
-$password = "npg_c1YhqZMnb8Nv";
+$password = "npg_oDPGTBR42zQk";
 
 try {
     $pdo = new PDO(
