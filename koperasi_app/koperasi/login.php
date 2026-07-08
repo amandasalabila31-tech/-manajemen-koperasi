@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username === '' || $password === '') {
         $error = "Username dan password wajib diisi.";
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = $1");
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = admin");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
