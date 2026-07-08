@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
     if ($username === '' || $password === '') {
         $error = "Username dan password wajib diisi.";
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE username = ?");
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = $1");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
